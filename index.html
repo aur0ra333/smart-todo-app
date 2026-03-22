@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能待办事项 - Smart Todo App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 智能待办事项</h1>
+            <p class="subtitle">高效管理你的每一天</p>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="total-tasks">0</div>
+                <div class="stat-label">总任务</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completed-tasks">0</div>
+                <div class="stat-label">已完成</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pending-tasks">0</div>
+                <div class="stat-label">待完成</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completion-rate">0%</div>
+                <div class="stat-label">完成率</div>
+            </div>
+        </div>
+
+        <div class="add-task-form">
+            <input type="text" id="task-input" placeholder="添加新任务..." />
+            <select id="priority-select">
+                <option value="low">低优先级</option>
+                <option value="medium" selected>中优先级</option>
+                <option value="high">高优先级</option>
+            </select>
+            <button id="add-btn" class="btn-primary">添加</button>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="pending">待完成</button>
+            <button class="filter-btn" data-filter="completed">已完成</button>
+            <button class="filter-btn" data-filter="high">高优先级</button>
+        </div>
+
+        <div class="task-list" id="task-list">
+            <!-- 任务列表将通过 JavaScript 动态加载 -->
+        </div>
+
+        <div class="empty-state" id="empty-state">
+            <div class="empty-icon">🎉</div>
+            <p>暂无任务，添加一个开始吧！</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
