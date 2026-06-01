@@ -3,115 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能待办事项 - Smart Todo App</title>
+    <title>任务看板 - Task Board</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 动态背景 -->
-    <div class="animated-bg">
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-    </div>
+    <main class="app-shell">
+        <section class="hero-panel">
+            <div>
+                <p class="eyebrow">Task Board</p>
+                <h1>任务看板</h1>
+                <p class="subtitle">用一个轻量页面完成任务录入、优先级判断、截止日期跟踪和状态复盘。</p>
+            </div>
+            <div class="hero-actions">
+                <button id="seed-btn" class="ghost-btn" type="button">重置示例</button>
+                <button id="export-btn" class="primary-btn" type="button">导出 CSV</button>
+            </div>
+        </section>
 
-    <div class="container glass">
-        <header>
-            <div class="header-top">
-                <h1><span class="header-icon">📝</span> 智能待办事项</h1>
-                <button class="theme-toggle" id="theme-toggle" title="切换主题">
-                    <span class="icon">🌙</span>
-                </button>
-            </div>
-            <p class="subtitle">高效管理你的每一天 ✨</p>
-        </header>
+        <section class="metrics-grid" aria-label="任务统计">
+            <article class="metric-card">
+                <span>总任务</span>
+                <strong id="total-tasks">0</strong>
+            </article>
+            <article class="metric-card">
+                <span>进行中</span>
+                <strong id="doing-tasks">0</strong>
+            </article>
+            <article class="metric-card">
+                <span>今日到期</span>
+                <strong id="today-tasks">0</strong>
+            </article>
+            <article class="metric-card">
+                <span>完成率</span>
+                <strong id="completion-rate">0%</strong>
+            </article>
+        </section>
 
-        <div class="stats-container">
-            <div class="stat-card glass">
-                <div class="stat-icon">📊</div>
-                <div class="stat-number" id="total-tasks">0</div>
-                <div class="stat-label">总任务</div>
-            </div>
-            <div class="stat-card glass">
-                <div class="stat-icon">✅</div>
-                <div class="stat-number" id="completed-tasks">0</div>
-                <div class="stat-label">已完成</div>
-            </div>
-            <div class="stat-card glass">
-                <div class="stat-icon">⏳</div>
-                <div class="stat-number" id="pending-tasks">0</div>
-                <div class="stat-label">待完成</div>
-            </div>
-            <div class="stat-card glass">
-                <div class="stat-icon">📈</div>
-                <div class="stat-number" id="completion-rate">0%</div>
-                <div class="stat-label">完成率</div>
-            </div>
-        </div>
+        <section class="workspace-grid">
+            <form id="task-form" class="panel task-form">
+                <div class="panel-header">
+                    <div>
+                        <h2>新增任务</h2>
+                        <p>记录清楚“做什么、什么时候交、优先级多高”。</p>
+                    </div>
+                </div>
+                <label>
+                    <span>任务内容</span>
+                    <input id="task-title" type="text" maxlength="80" placeholder="例如：整理数据看板 README 和截图说明" required>
+                </label>
+                <div class="form-row">
+                    <label>
+                        <span>优先级</span>
+                        <select id="task-priority">
+                            <option value="high">高</option>
+                            <option value="medium" selected>中</option>
+                            <option value="low">低</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>状态</span>
+                        <select id="task-status">
+                            <option value="todo">待处理</option>
+                            <option value="doing" selected>进行中</option>
+                            <option value="done">已完成</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-row">
+                    <label>
+                        <span>分类</span>
+                        <input id="task-category" type="text" list="category-list" placeholder="项目 / 学习 / 简历">
+                        <datalist id="category-list">
+                            <option value="项目">
+                            <option value="学习">
+                            <option value="简历">
+                            <option value="生活">
+                        </datalist>
+                    </label>
+                    <label>
+                        <span>截止日期</span>
+                        <input id="task-due" type="date">
+                    </label>
+                </div>
+                <label>
+                    <span>备注</span>
+                    <textarea id="task-note" rows="3" maxlength="180" placeholder="补充验收标准、链接或下一步"></textarea>
+                </label>
+                <button class="primary-btn" type="submit">添加到看板</button>
+            </form>
 
-        <div class="add-task-form">
-            <input type="text" id="task-input" placeholder="输入任务内容..." />
-            <div class="form-controls">
-                <select id="priority-select">
-                    <option value="low">🟢 低优先级</option>
-                    <option value="medium" selected>🟡 中优先级</option>
-                    <option value="high">🔴 高优先级</option>
+            <aside class="panel insight-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>本周概览</h2>
+                        <p>根据当前任务自动汇总。</p>
+                    </div>
+                </div>
+                <div class="progress-block">
+                    <div class="progress-head">
+                        <span>完成进度</span>
+                        <strong id="progress-label">0%</strong>
+                    </div>
+                    <div class="progress-track">
+                        <span id="progress-bar"></span>
+                    </div>
+                </div>
+                <div id="category-summary" class="category-summary"></div>
+                <div class="timeline">
+                    <h3>近期截止</h3>
+                    <div id="timeline-list"></div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="panel board-panel">
+            <div class="toolbar">
+                <div class="search-box">
+                    <span>搜索</span>
+                    <input id="task-search" type="search" placeholder="任务、分类或备注">
+                </div>
+                <select id="filter-select" aria-label="筛选任务">
+                    <option value="all">全部任务</option>
+                    <option value="todo">待处理</option>
+                    <option value="doing">进行中</option>
+                    <option value="done">已完成</option>
+                    <option value="today">今日到期</option>
+                    <option value="overdue">已逾期</option>
+                    <option value="high">高优先级</option>
                 </select>
-                <input type="text" id="category-input" placeholder="分类 (如：工作、学习)" list="category-list" />
-                <datalist id="category-list">
-                    <option value="工作">
-                    <option value="学习">
-                    <option value="生活">
-                    <option value="健康">
-                    <option value="其他">
-                </datalist>
-                <button id="add-btn" class="btn-primary">
-                    <span>添加</span>
-                    <span class="btn-icon">+</span>
-                </button>
+                <select id="sort-select" aria-label="排序任务">
+                    <option value="due">按截止日期</option>
+                    <option value="priority">按优先级</option>
+                    <option value="created">按创建时间</option>
+                    <option value="category">按分类</option>
+                </select>
+                <button id="clear-done-btn" class="ghost-btn" type="button">清理已完成</button>
             </div>
-        </div>
 
-        <div class="filter-tabs">
-            <button class="filter-btn active" data-filter="all">全部</button>
-            <button class="filter-btn" data-filter="pending">待完成</button>
-            <button class="filter-btn" data-filter="completed">已完成</button>
-            <button class="filter-btn" data-filter="high">🔴 高优先级</button>
-            <button class="filter-btn" data-filter="today">📅 今天</button>
-        </div>
+            <div id="task-list" class="task-list"></div>
+            <div id="empty-state" class="empty-state">
+                <h3>没有匹配的任务</h3>
+                <p>调整筛选条件，或者新增一个任务开始整理。</p>
+            </div>
+        </section>
+    </main>
 
-        <div class="sort-options">
-            <span>排序：</span>
-            <select id="sort-select">
-                <option value="default">默认排序</option>
-                <option value="priority">按优先级</option>
-                <option value="date">按日期</option>
-                <option value="category">按分类</option>
-            </select>
-        </div>
-
-        <div class="task-list" id="task-list">
-            <!-- 任务列表将通过 JavaScript 动态加载 -->
-        </div>
-
-        <div class="empty-state" id="empty-state">
-            <div class="empty-icon">🎉</div>
-            <h3>太棒了！</h3>
-            <p>所有任务都已完成，或者还没有添加任务</p>
-            <button class="btn-primary" onclick="document.getElementById('task-input').focus()">
-                添加第一个任务
-            </button>
-        </div>
-
-        <div class="quick-actions">
-            <button class="btn-action" onclick="clearCompleted()">
-                <span>🗑️</span>
-                <span>清除已完成</span>
-            </button>
-            <button class="btn-action" onclick="exportTasks()">
-                <span>📤</span>
-                <span>导出任务</span>
-            </button>
-        </div>
-    </div>
+    <template id="task-card-template">
+        <article class="task-card">
+            <div class="task-topline">
+                <span class="priority-pill"></span>
+                <span class="due-pill"></span>
+            </div>
+            <h3></h3>
+            <p class="task-note"></p>
+            <div class="task-meta">
+                <span class="category"></span>
+                <span class="created"></span>
+            </div>
+            <div class="task-actions">
+                <button class="status-btn" type="button"></button>
+                <button class="delete-btn" type="button">删除</button>
+            </div>
+        </article>
+    </template>
 
     <script src="app.js"></script>
 </body>
