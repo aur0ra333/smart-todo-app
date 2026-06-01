@@ -477,3 +477,80 @@ textarea:focus {
         width: 100%;
     }
 }
+
+/* Visual refinement */
+body {
+    background:
+        linear-gradient(180deg, #ffffff 0%, #f3f7fb 48%, #eef7f4 100%);
+}
+
+.app-shell {
+    padding-top: 28px;
+}
+
+.hero-panel {
+    min-height: 236px;
+    background:
+        linear-gradient(135deg, #142033 0%, #183b4a 100%);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 28px 70px rgba(20, 32, 51, 0.2);
+}
+
+.hero-panel h1 {
+    letter-spacing: 0;
+}
+
+.hero-panel .eyebrow {
+    color: #8bd7c7;
+}
+
+.hero-panel .subtitle {
+    color: rgba(255, 255, 255, 0.76);
+}
+
+.hero-panel .primary-btn {
+    background: #fff;
+    color: #142033;
+}
+
+.hero-panel .ghost-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.24);
+}
+
+.metric-card,
+.panel {
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 46px rgba(20, 68, 83, 0.08);
+}
+
+.metric-card strong {
+    color: #142033;
+}
+
+.task-card {
+    box-shadow: 0 12px 26px rgba(23, 32, 42, 0.05);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(37, 99, 235, 0.28);
+    box-shadow: 0 18px 34px rgba(23, 32, 42, 0.1);
+}
+
+.primary-btn,
+.ghost-btn,
+.status-btn,
+.delete-btn {
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.primary-btn:hover,
+.ghost-btn:hover,
+.status-btn:hover,
+.delete-btn:hover {
+    transform: translateY(-1px);
+}
