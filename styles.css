@@ -300,6 +300,41 @@ textarea:focus {
     margin-top: 18px;
 }
 
+.status-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.status-strip > div {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: center;
+    min-height: 64px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #f8fbfa;
+    padding: 12px;
+}
+
+.status-strip small {
+    grid-column: 2;
+    color: var(--muted);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.todo-dot { background: var(--amber); }
+.doing-dot { background: var(--primary); }
+.done-dot { background: var(--green); }
+
 .toolbar {
     align-items: center;
     flex-wrap: wrap;
@@ -462,6 +497,7 @@ textarea:focus {
 
     .metrics-grid,
     .task-list,
+    .status-strip,
     .form-row {
         grid-template-columns: 1fr;
         flex-direction: column;
