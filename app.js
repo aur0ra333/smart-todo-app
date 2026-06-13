@@ -29,7 +29,7 @@ const sampleTasks = [
         status: 'doing',
         category: '项目',
         dueDate: offsetDate(0),
-        note: '把主项目和练习项目分层，补充在线演示和 GitHub 链接。'
+        note: '把主项目和工具项目分层，补充在线演示和 GitHub 链接。'
     },
     {
         title: '整理数据看板的业务说明',
@@ -372,7 +372,7 @@ function clearDone() {
 
 function resetSamples() {
     openConfirmModal(
-        '确定要重置为示例任务吗？当前所有任务将被替换。',
+        '确定要载入演示数据吗？当前任务将被替换。',
         () => {
             tasks = sampleTasks.map(createTask);
             selectedIds.clear();
